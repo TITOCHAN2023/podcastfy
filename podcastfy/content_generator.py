@@ -88,16 +88,26 @@ class LongFormContentGenerator:
         llm_chain: The LangChain chain used for content generation
     """
     # Add constant for long-form instructions
-    LONGFORM_INSTRUCTIONS = """
-    Additional Instructions:
-        1. Provide extensive examples and real-world applications
-        2. Include detailed analysis and multiple perspectives
-        3. Use the "yes, and" technique to build upon points
-        4. Incorporate relevant anecdotes and case studies
-        5. Balance detailed explanations with engaging dialogue
-        6. Maintain consistent voice throughout the extended discussion
-        7. Generate a long conversation - output max_output_tokens tokens
-    """
+    LONGFORM_INSTRUCTIONS = '''
+    附加说明：
+        1. 提供广泛的示例和实际应用
+        2. 包括详细的分析和多视角
+        3. 使用“yes， and”技术来建立分数
+        4. 结合相关轶事和案例研究
+        5. 平衡详细的解释与引人入胜的对话
+        6. 在整个扩展讨论中保持一致的声音
+        7. 生成长对话 - 输出 max_output_tokens 令牌
+    '''
+    # """
+    # Additional Instructions:
+    #     1. Provide extensive examples and real-world applications
+    #     2. Include detailed analysis and multiple perspectives
+    #     3. Use the "yes, and" technique to build upon points
+    #     4. Incorporate relevant anecdotes and case studies
+    #     5. Balance detailed explanations with engaging dialogue
+    #     6. Maintain consistent voice throughout the extended discussion
+    #     7. Generate a long conversation - output max_output_tokens tokens
+    # """
     
     def __init__(self, chain, llm, config_conversation: Dict[str, Any], ):
         """
@@ -185,16 +195,27 @@ class LongFormContentGenerator:
 		# Initialize part_instructions with chat context
         enhanced_params["context"] = chat_context
         
-        COMMON_INSTRUCTIONS = """
-            Podcast conversation so far is given in CONTEXT.
-            Continue the natural flow of conversation. Follow-up on the very previous point/question without repeating topics or points already discussed!
-            Hence, the transition should be smooth and natural. Avoid abrupt transitions.
-            Make sure the first to speak is different from the previous speaker. Look at the last tag in CONTEXT to determine the previous speaker. 
-            If last tag in CONTEXT is <Person1>, then the first to speak now should be <Person2>.
-            If last tag in CONTEXT is <Person2>, then the first to speak now should be <Person1>.
-            This is a live conversation without any breaks.
-            Hence, avoid statemeents such as "we'll discuss after a short break.  Stay tuned" or "Okay, so, picking up where we left off".
-        """ 
+        COMMON_INSTRUCTIONS = '''
+            播客对话的内容在上下文中已经给出。
+            继续自然的对话流程。紧跟上一个点/问题，不要重复已经讨论过的话题或观点！
+            因此，过渡应该是流畅和自然的，避免突兀的转变。
+            确保第一个发言的人与之前的发言者不同。查看上下文中的最后标签以确定上一个发言者。
+            如果上下文中的最后标签是<Person1>，那么现在第一个发言的人应该是<Person2>。
+            如果上下文中的最后标签是<Person2>，那么现在第一个发言的人应该是<Person1>。
+            这是一个没有任何间断的直播对话。
+            因此，避免使用诸如“我们稍后会讨论。请继续关注”或“好吧，我们接着上次的话题继续”的语句。
+            '''
+        
+        # """
+        #     Podcast conversation so far is given in CONTEXT.
+        #     Continue the natural flow of conversation. Follow-up on the very previous point/question without repeating topics or points already discussed!
+        #     Hence, the transition should be smooth and natural. Avoid abrupt transitions.
+        #     Make sure the first to speak is different from the previous speaker. Look at the last tag in CONTEXT to determine the previous speaker. 
+        #     If last tag in CONTEXT is <Person1>, then the first to speak now should be <Person2>.
+        #     If last tag in CONTEXT is <Person2>, then the first to speak now should be <Person1>.
+        #     This is a live conversation without any breaks.
+        #     Hence, avoid statemeents such as "we'll discuss after a short break.  Stay tuned" or "Okay, so, picking up where we left off".
+        # """ 
 
         # Add part-specific instructions
         if part_idx == 0:

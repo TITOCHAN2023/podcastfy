@@ -131,6 +131,11 @@ class WebsiteExtractor:
 
 		return cleaned_content.strip()
 
+
+
+
+
+
 def main(seed: int = 42) -> None:
 	"""
 	Main function to test the WebsiteExtractor class.
