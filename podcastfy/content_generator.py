@@ -92,11 +92,12 @@ class LongFormContentGenerator:
     附加说明：
         1. 提供广泛的示例和实际应用
         2. 包括详细的分析和多视角
-        3. 使用“yes， and”技术来建立分数
-        4. 结合相关轶事和案例研究
+        3. 使用“没错， 还有”话术来建立观点
+        4. 结合相关轶事和案例研究,恰当应用文化典故进行比较说明,如中国的成语、西方的寓言等
         5. 平衡详细的解释与引人入胜的对话
         6. 在整个扩展讨论中保持一致的声音
         7. 生成长对话 - 输出 max_output_tokens 令牌
+        8. 保持对话的连贯性，避免突然的转变
     '''
     # """
     # Additional Instructions:
@@ -220,21 +221,21 @@ class LongFormContentGenerator:
         # Add part-specific instructions
         if part_idx == 0:
             enhanced_params["instruction"] = f"""
-            ALWAYS START THE CONVERSATION GREETING THE AUDIENCE: Welcome to {enhanced_params["podcast_name"]} - {enhanced_params["podcast_tagline"]}.
-            You are generating the Introduction part of a long podcast conversation.
-            Don't cover any topics yet, just introduce yourself and the topic. Leave the rest for later parts, following these guidelines:
+            总是以问候观众开始对话：欢迎来到 {enhanced_params["podcast_name"]} - {enhanced_params["podcast_tagline"]}。
+            你正在生成长篇播客对话的介绍部分。
+            不要讨论任何话题，只需介绍自己和主题。其余部分留待后续部分，遵循以下指南：
             """
         elif part_idx == total_parts - 1:
             enhanced_params["instruction"] = f"""
-            You are generating the last part of a long podcast conversation. 
+            你正在生成长篇播客对话的最后一部分。
             {COMMON_INSTRUCTIONS}
-            For this part, discuss the below INPUT and then make concluding remarks in a podcast conversation format and END THE CONVERSATION GREETING THE AUDIENCE WITH PERSON1 ALSO SAYING A GOOD BYE MESSAGE, following these guidelines:
+            在这一部分，讨论以下输入内容，然后在播客对话格式中做出总结性发言，并以Person1的告别信息结束对话并请使用"欲知后事如何，请听下回分解"，遵循以下指南：
             """
         else:
             enhanced_params["instruction"] = f"""
-            You are generating part {part_idx+1} of {total_parts} parts of a long podcast conversation.
+            你正在生成长篇播客对话的第 {part_idx+1} 部分，共 {total_parts} 部分。
             {COMMON_INSTRUCTIONS}
-            For this part, discuss the below INPUT in a podcast conversation format, following these guidelines:
+            在这一部分，讨论以下输入内容，以播客对话格式进行，遵循以下指南：
             """
         
         return enhanced_params
