@@ -7,6 +7,7 @@ from datetime import datetime
 from werkzeug.security import check_password_hash, generate_password_hash
 from logger import logger
 from typing import List
+import requests
 
 root_router = APIRouter(prefix="/root", tags=["root"])
 
@@ -80,6 +81,24 @@ async def upload(username:str,session:str,files: List[UploadFile] = File(...)):
     transcript =await upload_files(files, username, session)
 
     person1_lines,person2_lines=await divide(transcript)
+
+    person1_audio_list,person2_audio_list=[],[]
+
+
+
+    headers = {"Content-Type": "application/json"}
+    for i in range(len(person1_lines)):
+        requestsdata = {
+            "text": person1_lines[i],
+            #"voice": "Person1",
+            "request_id": "4000517517",
+            "rank": 0
+        }
+        response = requests.post("http://183.131.7.9:5011/tts'", json=requestsdata, headers=headers)
+        jsonresponse=response.json()
+        person1_audio_list.append(jsonresponse['path'])
+
+    
 
 
 
