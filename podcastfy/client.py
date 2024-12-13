@@ -291,25 +291,25 @@ def generate_podcast(
     longform: bool = False,
 ) -> Optional[str]:
     """
-    Generate a podcast or transcript from a list of URLs, a file containing URLs, a transcript file, or image files.
+    从URL列表、包含URL的文件、转录文件或图像文件生成播客或转录。
 
-    Args:
-        urls (Optional[List[str]]): List of URLs to process.
-        url_file (Optional[str]): Path to a file containing URLs, one per line.
-        transcript_file (Optional[str]): Path to a transcript file.
-        tts_model (Optional[str]): TTS model to use ('openai' [default], 'elevenlabs', 'edge', or 'gemini').
-        transcript_only (bool): Generate only a transcript without audio. Defaults to False.
-        config (Optional[Dict[str, Any]]): User-provided configuration dictionary.
-        conversation_config (Optional[Dict[str, Any]]): User-provided conversation configuration dictionary.
-        image_paths (Optional[List[str]]): List of image file paths to process.
-        is_local (bool): Whether to use a local LLM. Defaults to False.
-        text (Optional[str]): Raw text input to be processed.
-        llm_model_name (Optional[str]): LLM model name for content generation.
-        api_key_label (Optional[str]): Environment variable name for LLM API key.
-        topic (Optional[str]): Topic to generate podcast about.
+    参数:
+        urls (Optional[List[str]]): 要处理的URL列表。
+        url_file (Optional[str]): 包含URL的文件路径，每行一个URL。
+        transcript_file (Optional[str]): 转录文件的路径。
+        tts_model (Optional[str]): 要使用的TTS模型（'openai' [默认]，'elevenlabs'，'edge'或'gemini'）。
+        transcript_only (bool): 仅生成转录而不生成音频。默认为False。
+        config (Optional[Dict[str, Any]]): 用户提供的配置字典。
+        conversation_config (Optional[Dict[str, Any]]): 用户提供的对话配置字典。
+        image_paths (Optional[List[str]]): 要处理的图像文件路径列表。
+        is_local (bool): 是否使用本地LLM。默认为False。
+        text (Optional[str]): 要处理的原始文本输入。
+        llm_model_name (Optional[str]): 内容生成的LLM模型名称。
+        api_key_label (Optional[str]): LLM API密钥的环境变量名称。
+        topic (Optional[str]): 要生成播客的主题。
 
-    Returns:
-        Optional[str]: Path to the final podcast audio file, or None if only generating a transcript.
+    返回:
+        Optional[str]: 最终播客音频文件的路径，如果仅生成转录则返回None。
     """
     try:
         print("Generating podcast...")

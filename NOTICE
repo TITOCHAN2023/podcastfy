@@ -5,3 +5,13 @@ This product includes software developed by:
 Tharsis T. P. Souza (www.souzatharsis.com) and all of the great contributors listed at https://github.com/souzatharsis/podcastfy/graphs/contributors.
 ------------------------
 The text of the Apache License, Version 2.0 can be found in the LICENSE file.
+
+选项 1：安装 psycopg2-binary
+pip install psycopg2-binary
+选项 2：安装 PostgreSQL 客户端工具
+brew install postgresql
+在 Mac 上，你可以使用 Homebrew 安装 PostgreSQL 客户端工具：
+
+安装完成后，再次尝试安装 psycopg2：
+
+pip install psycopg2
