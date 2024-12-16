@@ -121,10 +121,14 @@ async def upload(username:str,sessionname:str,files: List[UploadFile] = File(...
         with session() as conn:
             user = conn.query(UserSchema).filter(UserSchema.username == username).first()
             if not user:
+                logger.error(f"User not found: {username}")
                 raise HTTPException(status_code=404, detail="User not found")
 
-            ses = conn.query(SessionSchema).filter(sessionname == sessionname).first()
+            logger.info(f"User found: {user.username}")
+
+            ses = conn.query(SessionSchema).filter(SessionSchema.sessionname == sessionname).first()
             if ses:
+                logger.error(f"Session already exists: {sessionname}")
                 raise HTTPException(status_code=409, detail="Session already exists")
 
             ses = SessionSchema(
@@ -142,8 +146,9 @@ async def upload(username:str,sessionname:str,files: List[UploadFile] = File(...
         logger.error(f"Error creating session: {str(e)}")
         raise HTTPException(status_code=500, detail="Error creating session")
 
-    #transcript =await upload_files(files, username, sessionname)
-    transcript = test_text
+
+    transcript =await upload_files(files, username, sessionname)
+    #transcript = test_text
 
     logger.info(f"transcript: {transcript}")
 
