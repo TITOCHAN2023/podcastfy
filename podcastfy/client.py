@@ -51,6 +51,7 @@ def process_content(
     text: Optional[str] = None,
     model_name: Optional[str] = None,
     api_key_label: Optional[str] = None,
+    base_url: Optional[str] = None,
     topic: Optional[str] = None,
     longform: bool = False
 ):
@@ -85,6 +86,7 @@ def process_content(
                 is_local=is_local,
                 model_name=model_name,
                 api_key_label=api_key_label,
+                base_url=base_url,
                 conversation_config=conv_config.to_dict()
             )
 
@@ -287,6 +289,7 @@ def generate_podcast(
     text: Optional[str] = None,
     llm_model_name: Optional[str] = None,
     api_key_label: Optional[str] = None,
+    base_url: Optional[str] = None,
     topic: Optional[str] = None,
     longform: bool = False,
 ) -> Optional[str]:
@@ -354,6 +357,7 @@ def generate_podcast(
                 text=text,
                 model_name=llm_model_name,
                 api_key_label=api_key_label,
+                base_url=base_url,
                 topic=topic,
                 longform=longform
             )
@@ -380,6 +384,7 @@ def generate_podcast(
                 text=text,
                 model_name=llm_model_name,
                 api_key_label=api_key_label,
+                base_url=base_url,
                 topic=topic,
                 longform=longform
             )

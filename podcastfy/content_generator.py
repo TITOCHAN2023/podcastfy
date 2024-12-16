@@ -12,7 +12,8 @@ import re
 
 
 from langchain_community.chat_models import ChatLiteLLM
-from langchain_google_genai import ChatGoogleGenerativeAI
+
+from langchain_openai.chat_models import ChatOpenAI
 from langchain_community.llms.llamafile import Llamafile
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
@@ -34,6 +35,7 @@ class LLMBackend:
         max_output_tokens: int,
         model_name: str,
         api_key_label: str = "GEMINI_API_KEY",
+        base_url: Optional[str] = None,  # 添加 base_url 参数
     ):
         """
         Initialize the LLMBackend.
@@ -59,13 +61,13 @@ class LLMBackend:
         if is_local:
             self.llm = Llamafile() # replace with ollama
         elif (
-            "gemini" in self.model_name.lower()
+            "gpt" in self.model_name.lower()
         ):  # keeping original gemini as a special case while we build confidence on LiteLLM
 
-            self.llm = ChatGoogleGenerativeAI(
-                api_key=os.environ["GEMINI_API_KEY"],
+            self.llm = ChatOpenAI(
                 model=model_name,
-                max_output_tokens=max_output_tokens,
+                openai_api_base=base_url,
+                openai_api_key=api_key_label,
                 **common_params,
             )
         else:  # user should set api_key_label from input
@@ -728,8 +730,9 @@ class ContentGenerator:
     def __init__(
         self, 
         is_local: bool=False, 
-        model_name: str="gemini-1.5-pro-latest", 
+        model_name: str="gemini-1.5-flash-002", 
         api_key_label: str="GEMINI_API_KEY",
+        base_url: Optional[str] = "https://generativelanguage.googleapis.com",  # 添加 base_url 参数
         conversation_config: Optional[Dict[str, Any]] = None
     ):
         """
@@ -771,6 +774,7 @@ class ContentGenerator:
             ),
             model_name=model_name,
             api_key_label=api_key_label,
+            base_url=base_url,  # 添加 base_url 参数
         )
 
         self.llm = llm_backend.llm

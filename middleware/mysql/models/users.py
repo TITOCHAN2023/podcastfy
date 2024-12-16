@@ -7,6 +7,6 @@ from .base import BaseSchema
 
 class UserSchema(BaseSchema):
 
-    __tablename__ = "users"
+    __tablename__ = "podcastfy_users"
     uid: int = Column(Integer, primary_key=True, autoincrement=True)
     username: str = Column(String(100), nullable=False)

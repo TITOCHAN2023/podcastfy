@@ -2,7 +2,7 @@ from fastapi import FastAPI
 
 from logger import logger
 
-from routes.router import root_router, v1_router
+from routes.router import root_router
 
 
 

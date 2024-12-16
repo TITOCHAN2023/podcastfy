@@ -2,22 +2,28 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+MYSQL_DATABASE = os.getenv("MYSQL_DATABASE")
+MYSQL_HOST = os.getenv("MYSQL_HOST")
+MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
+MYSQL_PORT = os.getenv("MYSQL_PORT")
+MYSQL_USER = os.getenv("MYSQL_USER")
+
 from logger import logger
 
 from .models import BaseSchema
-from dotenv import load_dotenv
-import os
 
-load_dotenv()
-
-DATABASE_URL = os.getenv("DATABASE_URL")
+MYSQL_LINK = f"mysql+mysqlconnector://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}:{MYSQL_PORT}/{MYSQL_DATABASE}"
 
 
 @logger.catch
 def init_mysql_session() -> sessionmaker[Session]:
 
     engine = create_engine(
-        DATABASE_URL,
+        MYSQL_LINK,
         connect_args={
             "charset": "utf8mb4",
         },
