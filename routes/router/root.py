@@ -192,7 +192,7 @@ async def upload(username:str,sessionname:str,files: List[UploadFile] = File(...
                 with session() as conn:
                     conversation = ConversationSchema(
                             sid=sid,
-                            content_1=str(tts_audio_url+jsonresponse2['path']),
+                            content_1=str(tts_audio_url+jsonresponse1['path']),
                             content_2=str(tts_audio_url+jsonresponse2['path'])
                         )
                     conn.add(conversation)
