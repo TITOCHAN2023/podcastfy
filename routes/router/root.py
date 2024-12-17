@@ -139,8 +139,8 @@ async def upload(username:str,sessionname:str,files: List[UploadFile] = File(...
         logger.error(f"Error creating session: {str(e)}")
 
 
-    #transcript =await upload_files(files, username, sessionname)
-    transcript = test_text
+    transcript =await upload_files(files, username, sessionname)
+    #transcript = test_text
 
     logger.info(f"transcript: {transcript}")
 

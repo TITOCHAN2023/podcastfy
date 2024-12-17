@@ -36,10 +36,12 @@ if st.button("上传文件"):
                     try:
                         data = json.loads(decoded_line)
                         if 'audio_person_1' in data:
-                            st.markdown(f"## person 1: {data['text_person_1']}")
+                            st.markdown(f"## person 1:")
+                            st.markdown(data['text_person_1'])
                             st.audio(data['audio_person_1'])
                         if 'audio_person_2' in data:
-                            st.markdown(f"## person 2: {data['text_person_2']}")
+                            st.markdown(f"## person 2:")
+                            st.markdown(data['text_person_2'])
                             st.audio(data['audio_person_2'])
 
                     except json.JSONDecodeError as e:
