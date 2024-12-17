@@ -8,17 +8,17 @@ from urllib.parse import quote_plus
 from dotenv import load_dotenv
 load_dotenv()
 
-MYSQL_DATABASE = os.getenv("MYSQL_DATABASE")
-MYSQL_HOST = os.getenv("MYSQL_HOST")
-MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
-MYSQL_PORT = os.getenv("MYSQL_PORT")
-MYSQL_USER = os.getenv("MYSQL_USER")
+# MYSQL_DATABASE = os.getenv("MYSQL_DATABASE")
+# MYSQL_HOST = os.getenv("MYSQL_HOST")
+# MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
+# MYSQL_PORT = os.getenv("MYSQL_PORT")
+# MYSQL_USER = os.getenv("MYSQL_USER")
 PGSQLDB_CONFIG= os.getenv("PGSQLDB_CONFIG")
 from logger import logger
 
 from .models import BaseSchema
 
-MYSQL_LINK = f"mysql+mysqlconnector://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}:{MYSQL_PORT}/{MYSQL_DATABASE}"
+# MYSQL_LINK = f"mysql+mysqlconnector://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}:{MYSQL_PORT}/{MYSQL_DATABASE}"
 pgsqldb_config =eval(PGSQLDB_CONFIG)
 
 @logger.catch
