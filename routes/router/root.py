@@ -165,7 +165,7 @@ async def upload(username:str,sessionname:str,files: List[UploadFile] = File(...
                 response = requests.post(tts_url, json=requestsdata, headers=headers)
                 jsonresponse1=response.json()
                 logger.info(f"jsonresponse1: {tts_audio_url}{jsonresponse1['path']}")
-                yield f"data: {json.dumps({'audio_person_1': tts_audio_url+jsonresponse1['path']})}\n\n"
+                yield f"data: {json.dumps({'audio_person_1': tts_audio_url+jsonresponse1['path'],'text_person_1':i[0]})}\n\n"
 
                 requestsdata = {
                     "text": i[1],
@@ -176,7 +176,7 @@ async def upload(username:str,sessionname:str,files: List[UploadFile] = File(...
                 response = requests.post(tts_url, json=requestsdata, headers=headers)
                 jsonresponse2=response.json()
                 logger.info(f"jsonresponse2: {tts_audio_url}{jsonresponse2['path']}")
-                yield f"data: {json.dumps({'audio_person_2': tts_audio_url+jsonresponse2['path']})}\n\n"
+                yield f"data: {json.dumps({'audio_person_2': tts_audio_url+jsonresponse2['path'],'text_person_2':i[1]})}\n\n"
                 
 
                 logger.info(f"Conversation added with SID: {sid}")
