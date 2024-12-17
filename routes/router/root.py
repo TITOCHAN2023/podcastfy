@@ -113,7 +113,8 @@ async def upload(username:str,sessionname:str,files: List[UploadFile] = File(...
                 raise HTTPException(status_code=404, detail="User not found")
 
             logger.info(f"User found: {user.username}")
-
+            
+            sessionname = sessionname+files[0].filename
             ses = conn.query(SessionSchema)\
             .filter(SessionSchema.sessionname == sessionname)\
             .filter(SessionSchema.uid== user.uid)\
