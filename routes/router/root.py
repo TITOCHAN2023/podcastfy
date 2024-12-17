@@ -64,7 +64,7 @@ async def upload_files(files: List[UploadFile], username: str, sessionname: str)
         content = await file.read()
 
         if ext not in allowed_extensions:
-            raise HTTPException(status_code=400, detail=f"不支持的文件类型: {file.filename}")
+            raise HTTPException(status_code=400, detail=f"不支持的文件类型: {file.filename}:{ext}")
 
         if len(content) > UPLOAD_FILES_MAX_SIZE:
             raise HTTPException(status_code=413, detail=f"文件太大: {file.filename}")
@@ -126,7 +126,11 @@ async def upload(username:str,sessionname:str,files: List[UploadFile] = File(...
 
             logger.info(f"User found: {user.username}")
 
-            ses = conn.query(SessionSchema).filter(SessionSchema.sessionname == sessionname).first()
+            ses = conn.query(SessionSchema)\
+            .filter(SessionSchema.sessionname == sessionname)\
+            .filter(SessionSchema.uid== user.uid)\
+            .first()
+
             if ses:
                 logger.error(f"Session already exists: {sessionname}")
                 raise HTTPException(status_code=409, detail="Session already exists")
@@ -143,8 +147,8 @@ async def upload(username:str,sessionname:str,files: List[UploadFile] = File(...
             logger.info(f"Session created with ID: {sid}")
 
     except Exception as e:
+
         logger.error(f"Error creating session: {str(e)}")
-        raise HTTPException(status_code=500, detail="Error creating session")
 
 
     transcript =await upload_files(files, username, sessionname)
