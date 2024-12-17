@@ -14,7 +14,8 @@
    ```
 2. start back-end with
 
-    ``` uvicorn main:app --host '0.0.0.0' --port 8172 --reload --env-file .env                                                                            ```
+    ``` uvicorn main:app --host '0.0.0.0' --port 8172 --reload --env-file .env```
 
 3. start front-end with
+
     ```streamlit run streamlit-upload-app/src/app.py```
