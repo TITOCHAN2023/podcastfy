@@ -121,7 +121,9 @@ async def upload(username:str,sessionname:str,files: List[UploadFile] = File(...
 
             if ses:
                 logger.error(f"Session already exists: {sessionname}")
-                raise HTTPException(status_code=409, detail="Session already exists")
+                import random
+                random_number = str(random.random())
+                sessionname = sessionname + random_number
 
             ses = SessionSchema(
                 uid=user.uid,
