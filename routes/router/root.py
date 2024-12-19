@@ -23,6 +23,7 @@ tts_audio_url = os.getenv("TTS_AUDIO_URL")
 gemini_api_key = os.getenv("GEMINI_API_KEY")
 openai_api_key = os.getenv("OPENAI_API_KEY")
 base_url = os.getenv("BASE_URL")
+
 test_text='''<Person1> "欢迎收听PODCASTIFY—你的个人生成AI播客！今天，我们将深入讨论《三国演义》中第四十二回的内容，主题是张翼德大闹长坂桥和刘豫州败走汉津口。这一段真的是跌宕起伏，精彩绝伦啊！”
 </Person1><Person2> "完全同意！这一章中的战斗场面揭示了英雄们在困境中逆袭的光辉时刻。你觉得最吸引人的部分是什么呢？”
 </Person2>'''
@@ -154,44 +155,77 @@ async def upload(username:str,sessionname:str,files: List[UploadFile] = File(...
     logger.info(f"zipped_list: {zipped_list}")
 
 
-    headers = {"Content-Type": "application/json"}
+    headers = {}
     async def generate():
         for i in zipped_list:
 
             try:    #交谈话语
-                requestsdata = {
-                    "text": i[0],
-                    #"voice": "Person1",
-                    "request_id": "4000517517",
-                    "rank": 0
-                }
-                response = requests.post(tts_url, json=requestsdata, headers=headers)
-                jsonresponse1=response.json()
-                logger.info(f"jsonresponse1: {tts_audio_url}{jsonresponse1['path']}")
-                yield f"data: {json.dumps({'audio_person_1': tts_audio_url+jsonresponse1['path'],'text_person_1':i[0]})}\n\n"
+                if tts_url=="http://183.131.7.9:5011/tts":
+                    requestsdata = {
+                        "text": i[0],
+                        #"voice": "Person1",
+                        "request_id": "4000517517",
+                        "rank": 0
+                    }
+                    response = requests.post(tts_url, json=requestsdata, headers=headers)
+                    jsonresponse1=response.json()
+                    logger.info(f"jsonresponse1: {tts_audio_url}{jsonresponse1['path']}")
+                    yield f"data: {json.dumps({'audio_person_1': tts_audio_url+jsonresponse1['path'],'text_person_1':i[0]})}\n\n"
 
-                requestsdata = {
-                    "text": i[1],
-                    #"voice": "Person2",
-                    "request_id": "4000517517",
-                    "rank": 0
-                }
-                response = requests.post(tts_url, json=requestsdata, headers=headers)
-                jsonresponse2=response.json()
-                logger.info(f"jsonresponse2: {tts_audio_url}{jsonresponse2['path']}")
-                yield f"data: {json.dumps({'audio_person_2': tts_audio_url+jsonresponse2['path'],'text_person_2':i[1]})}\n\n"
+                    requestsdata = {
+                        "text": i[1],
+                        #"voice": "Person2",
+                        "request_id": "4000517517",
+                        "rank": 0
+                    }
+                    response = requests.post(tts_url, json=requestsdata, headers=headers)
+                    jsonresponse2=response.json()
+                    logger.info(f"jsonresponse2: {tts_audio_url}{jsonresponse2['path']}")
+                    yield f"data: {json.dumps({'audio_person_2': tts_audio_url+jsonresponse2['path'],'text_person_2':i[1]})}\n\n"
+
+                    with session() as conn:
+                        conversation = ConversationSchema(
+                                sid=sid,
+                                content_1=str(tts_audio_url+jsonresponse1['path']),
+                                content_2=str(tts_audio_url+jsonresponse2['path'])
+                            )
+                        conn.add(conversation)
+                        conn.commit()
+
+                elif tts_url=="http://183.131.7.9:8175/tts":
+                    requestsdata = {
+                        "voicename": "Person1",
+                        "content": i[0],
+                    }
+                    response = requests.post(tts_url, data=requestsdata, headers=headers)
+                    jsonresponse1=response.json()
+                    logger.info(f"jsonresponse1: {jsonresponse1['url']}")
+                    yield f"data: {json.dumps({'audio_person_1': jsonresponse1['url'],'text_person_1':i[0]})}\n\n"
+
+                    
+                    requestsdata = {
+                        "voicename": "Person2",
+                        "content": i[1],
+                    }
+                    response = requests.post(tts_url, data=requestsdata, headers=headers)
+                    jsonresponse2=response.json()
+                    logger.info(f"jsonresponse2: {jsonresponse2['url']}")
+                    yield f"data: {json.dumps({'audio_person_2': jsonresponse2['url'],'text_person_2':i[1]})}\n\n"
+
+                    with session() as conn:
+                        conversation = ConversationSchema(
+                                sid=sid,
+                                content_1=str(jsonresponse1['url']),
+                                content_2=str(jsonresponse2['url'])
+                            )
+                        conn.add(conversation)
+                        conn.commit()
+                
                 
 
                 logger.info(f"Conversation added with SID: {sid}")
 
-                with session() as conn:
-                    conversation = ConversationSchema(
-                            sid=sid,
-                            content_1=str(tts_audio_url+jsonresponse1['path']),
-                            content_2=str(tts_audio_url+jsonresponse2['path'])
-                        )
-                    conn.add(conversation)
-                    conn.commit()
+                
             except Exception as e:
                 logger.error(f"audio[{i}] generation failed")
                 yield f"data: {json.dumps({'error': str(e)})}\n\n"

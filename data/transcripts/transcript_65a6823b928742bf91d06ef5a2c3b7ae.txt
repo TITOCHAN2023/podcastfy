@@ -1,0 +1,33 @@
+<Person1> "欢迎来到PODCASTIFY！今天我们要讨论的是一个关于计算机网络的实验报告，特别是RIP和OSPF协议。这可真是一个激动人心的话题！你准备好深入探讨这些路由协议了吗？" 
+</Person1><Person2> "我非常兴奋！首先，这个实验的目的是什么呢？" 
+</Person2><Person1> "主要有两个：掌握RIP路由协议的基本原理，以及熟悉单区域OSPF的配置。RIP和OSPF是最常用的路由协议之一，理解它们对网络设计至关重要！" 
+</Person1><Person2> "没错。那么在实验过程中，我们先从RIP协议开始吧。可以给我们讲解一下基本配置步骤吗？" 
+</Person2><Person1> "当然可以！首先，要按照拓扑图来接线。在对RTA进行配置时，network命令作用重大哦。它不仅能激活接口，还能传播当前网络的信息。这可是至关重要的一步呢。" 
+</Person1><Person2> "那当使用display rip database和display rip route命令查看信息时，有什么不同之处吗？" 
+</Person2><Person1> "这是个好问题！经过步骤三之后，如果使用route命令，就会看到多出来的peer连接信息。而接口命令也会显示更新后的状态，这展示了每一步都直接影响着我们的路由表。" 
+</Person1><Person2> "听起来真的很有趣。那么接下来，我们转到OSPF协议吧，它有什么独特之处吗？" 
+</Person2><Person1> "当然有！对于OSPF来说，关键是在于如何划分区域并优化网络性能。在这个实验中，我们完成了一些路径查找，比如说从RTA到10.3.0.0/24网段..."
+</Person1><Person2> "...然后往下走是RTB到10.2.0.0/24，还有RTC到10.1.0.0/24，是不是？这让我想起了在复杂网络环境中管理数据流的重要性。" 
+</Person2><Person1> “完全正确! 而且，在操作过程中，你还要设置cost值，以此来影响路由选择。这些设置甚至能够改变整个数据传输效率！”
+</Person1><Person2> “太神奇了！不过，有个思考题，我觉得值得探讨一下：为什么不建议在大规模网络中使用RIP？”
+</Person2><Person1> “这是因为几个原因，比如跳数限制、收敛速度慢，还有带宽消耗等因素，都使得RIP不适合庞大的网络结构。”
+(Person Two) 
+“这样的确让人思考，但如果搭配一些其他方法呢？比如说动态调整或者混合策略…这样是否可以优化ROUTING NETWORK？
+” 
+(First Person Electronics side)
+“哈哈，这是个很好的想法。通过综合运用不同类型的协议，可以提高总体效果。不过 OSFP 划分区域科学有效，减少Broadcast, 提高收敛，也是良方！” 
+(Pause Extension here when necessary...)  
+(Concluding Remarks moving back into either closing roles / one more question average...)
+(Person One Closing as 'The Expert'）
+“关于主干区标识符为 0 点 0 点.... 的知识，也同样极其重要，因为它意味着所有非主干区需要直接或间接与主干区相连，确保信息传递无障碍。”    
+()   
+（个人事项） 
+作为结尾记录清晰，因此如此深入也告诉大家概括“今天所述内容都点出来非常精髓！”
+（Ending Note Summary PIMs）
+“You today where discussing 如何在大及小尺度上更合理搭建 routing network，让 key takes 回去做到哪些评估城市出击上都有解决，再回忆重点。所以保持沟通, 整体考虑协作就是变简单。”
+( Then swim with concluding goodbyes!)
+人物二轻声微笑道：
+谢谢大家收听，希望我们今天提出的问题和讨论能帮助你更好地理解 ROUTING NETWORK，谢谢再见！
+ 人物一：
+ 在这里感谢大家加入这次探索旅程，我们下期见，再见啦！
+ </Person1>
